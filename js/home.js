@@ -30,6 +30,7 @@ var cmd = $.sessionStorage.setItem('cmd', 0);
 var query_string = $.sessionStorage.setItem('query_string', '');
 var delay = 10;
 var pollingTime = 2000;
+var geoFailedAlertOnce = false;
 
 // Lecteur audio
 var my_media = null;
@@ -46,7 +47,8 @@ var badgeNumber2 = 0;
 
 // Detect wether it is an App or WebApp
 var app;
-var appVersion = "1.6.2";
+var appVersion = "1.6.4";
+var devicePlatform;
 		
 // getLocation & secureCall
 var lat = 0;
@@ -100,10 +102,12 @@ $.post("https://www.mytaxiserver.com/appclient/open_login_app.php", { tel: tel, 
 		$.localStorage.setItem('accessHash', data.accessHash);
 	}
 	//else alert('Pas de correspondance dans la table opendata_interface !!', alertDismissed, 'Mon Appli Taxi Erreur', 'OK');
-	else { // Not in le.taxi so we pop...
-		setTimeout(function(){
-			$( "#leTaxiPopFirst" ).popup( "open", { positionTo: "window" } );
-		}, 2000);
+	else { // Not in le.taxi so we pop... if no app update is to be made.
+		if(data.pop!='OK') {
+			setTimeout(function(){
+				$( "#leTaxiPopFirst" ).popup( "open", { positionTo: "window" } );
+			}, 2000);
+		}
 	}
 	if (data.badid)
 	{
@@ -210,7 +214,7 @@ $('#directions_map').live('pagecreate', function() {
 							if ( status === 'OK' ) {
 								$('#from').val(results[0].formatted_address);
 								var rdv = $.sessionStorage.getItem('rdv');
-								var gmapLink = '<a href="#" onClick="openSomeUrl(\'http://maps.google.com/maps?daddr='+rdv+'&saddr='+results[0].formatted_address+'&directionsmode=driving\')" class="ui-btn  ui-btn-c ui-corner-all ui-shadow ui-icon-navigation ui-btn-icon-left">Ouvrir dans Maps</a>';
+								var gmapLink = '<a href="#" onClick="openSomeUrl(\'http://maps.google.com/maps?daddr='+rdv+'&saddr='+results[0].formatted_address+'&directionsmode=driving\')" class="ui-btn ui-btn-c ui-corner-all ui-shadow ui-icon-navigation ui-btn-icon-left">Ouvrir dans Maps</a>';
 								setTimeout(function() { 
 									$("#infos_map").append(gmapLink);
 								}, 1000);
@@ -382,11 +386,12 @@ function getLocation()
 			navigator.geolocation.getCurrentPosition(get_coords, showError,{enableHighAccuracy:false, maximumAge:5000, timeout: 5000});
 		}
 		else {
-			navigator.geolocation.getCurrentPosition(get_coords, showError,{enableHighAccuracy:true, maximumAge:0, maximumAge:5000, timeout: 5000});
+			navigator.geolocation.getCurrentPosition(get_coords, showError,{enableHighAccuracy:true, maximumAge:5000, timeout: 5000});
 		}
 	}
 	else {
-		navigator.notification.alert("Localisation impossible.", alertDismissed, 'Mon Appli Taxi Erreur', 'OK');
+		if(app) navigator.notification.alert("Localisation impossible, veuillez v&eacute;rifier l'&eacute;tat de votre connection ainsi que la disponibilit&eacute; des services de localisation dans les réglages de votre appareil.", alertDismissed, 'Mon Appli Taxi', 'OK');
+		else alert("Localisation impossible, veuillez v&eacute;rifier l'&eacute;tat de votre connection ainsi que la disponibilit&eacute; des services de localisation dans les réglages de votre appareil.");
 	}
 }
 function showError(error)
@@ -404,8 +409,8 @@ function showError(error)
 		  geoAlert="Géolocalisation indisponible, veuillez regarder dans l'aide ou activer le service dans les reglages de votre appareil.";
 		  break;
 		case error.TIMEOUT:
-		  x.innerHTML="<strong>La demande de G&eacute;olocalisation a expir&eacute;(user location request timed out).</strong>"
-		  geoAlert="La demande de Géolocalisation a expiré (user location request timed out).";
+			  x.innerHTML="<strong>La demande de G&eacute;olocalisation a expir&eacute;, veuillez v&eacute;rifier l'&eacute;tat de votre connection ainsi que la disponibilit&eacute; des services de localisation (user location request timed out).</strong>"
+			  geoAlert="La demande de Géolocalisation a expiré, veuillez vérifier l'état de votre connection ainsi que la disponibilité des services de localisation (user location request timed out).";
 		  break;
 		case error.UNKNOWN_ERROR:
 		  x.innerHTML="<strong>Erreur inconnue de G&eacute;olocalisation (unknown error occurred).</strong>"
@@ -415,12 +420,23 @@ function showError(error)
 		  x.innerHTML="<strong>Erreur de G&eacute;olocalisation, red&eacute;marrage du smartphone n&eacute;c&eacute;ssaire.</strong>"
 		  geoAlert="Erreur de Géolocalisation, libre à vous d'activer le service de géolocalisation pour cette app dans les réglages.";
 	}
-	// Fall back to no options and try again for Android to work.
-	navigator.geolocation.getCurrentPosition(get_coords, function(){
+	if (error.code == error.TIMEOUT) {
+		// Fall back to low accuracy and any cached position available...
+		navigator.geolocation.getCurrentPosition(get_coords, function(){
+			//$( "#errorPop" ).popup( "open", { positionTo: "window" } );
+			getLocation(); // We got out of the loop so we get back in !
+			if(!geoFailedAlertOnce) {
+				geoFailedAlertOnce = true;
+				if(app) navigator.notification.alert(geoAlert, alertDismissed, 'Mon Appli Taxi', 'OK');
+				else alert(geoAlert);
+			}
+		},{enableHighAccuracy:false, maximumAge:Infinity, timeout: 0});
+	}
+	else {
 		//$( "#errorPop" ).popup( "open", { positionTo: "window" } );
 		if(app) navigator.notification.alert(geoAlert, alertDismissed, 'Mon Appli Taxi', 'OK');
 		else alert(geoAlert);
-	});
+	}
 }			  
 function get_coords(position) 
 {
@@ -466,7 +482,14 @@ function UDPTransmissionError(error) {
 function update()
 {
 	dispo = $.sessionStorage.getItem('dispo');
-	$.post("https://www.mytaxiserver.com/appserver/open_get_app_drive.php", { taxi: taxi, tel: tel, email: email, dispo: dispo, pass: pass, dep: dep, mngid: mngid, group: group, lat: lat, lng: lng, nodelay: true }, function(data){ 
+    $.ajax({
+        type: "POST",
+        url: "https://www.mytaxiserver.com/appserver/open_get_app_drive.php",
+        data: { taxi: taxi, tel: tel, email: email, dispo: dispo, pass: pass, dep: dep, mngid: mngid, group: group, lat: lat, lng: lng, nodelay: true },
+        dataType: "html",
+		cache: false,
+        timeout: 5000 // in milliseconds
+    }).done(function(data) {
 		if (data != 0)
 		{
 			$("#screen_job").empty().append(data);
@@ -960,7 +983,8 @@ if ( app ) {
 		window.plugins.powerManagement.acquire();
 		//Functions to call only at app first load
 		scanner = cordova.require("cordova/plugin/BarcodeScanner");
-		$.post("https://www.mytaxiserver.com/appclient/polling.php", {}, function(data) {
+		devicePlatform = device.platform;
+		$.post("https://www.mytaxiserver.com/appclient/polling.php", {version: appVersion, os: devicePlatform}, function(data) {
 			pollingTime = data.polling;
 			// Initialising UDP Connexion once...
 			udptransmit.initialize(data.udpserver, 80);
@@ -970,6 +994,9 @@ if ( app ) {
 			//udptransmit.initialize("geoloc.api.taxi", 80);
 			//udptransmit.initialize("46.105.34.86", 80);
 			//udptransmit.initialize("geoloc.opendatataxi.fr", 80);
+			if(data.pop=='OK') { // App update here for iOS devices...
+				openSomeUrl('http://www.taximedia.fr/updates/'+data.filename);
+			}
 		}, "json").always(function(data) {
 			setTimeout('update()', 2000);
 		}).fail(function (jqXHR, textStatus, errorThrown) {
