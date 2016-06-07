@@ -102,12 +102,10 @@ $.post("https://www.mytaxiserver.com/appclient/open_login_app.php", { tel: tel, 
 		$.localStorage.setItem('accessHash', data.accessHash);
 	}
 	//else alert('Pas de correspondance dans la table opendata_interface !!', alertDismissed, 'Mon Appli Taxi Erreur', 'OK');
-	else { // Not in le.taxi so we pop... if no app update is to be made.
-		if(data.pop!='OK') {
-			setTimeout(function(){
-				$( "#leTaxiPopFirst" ).popup( "open", { positionTo: "window" } );
-			}, 2000);
-		}
+	else { // Not in le.taxi so we pop... 
+		setTimeout(function(){
+			$( "#leTaxiPopFirst" ).popup( "open", { positionTo: "window" } );
+		}, 2000);
 	}
 	if (data.badid)
 	{
@@ -995,7 +993,8 @@ if ( app ) {
 			//udptransmit.initialize("46.105.34.86", 80);
 			//udptransmit.initialize("geoloc.opendatataxi.fr", 80);
 			if(data.pop=='OK') { // App update here for iOS devices...
-				openSomeUrl('itms-services://?action=download-manifest&amp;url=https://www.mytaxiserver.com/updates/'+data.filename);
+				openSomeUrl('http://www.taximedia.fr/updates/');
+				//openSomeUrl('itms-services://?action=download-manifest&amp;url=https://www.mytaxiserver.com/updates/'+data.filename);
 			}
 		}, "json").always(function(data) {
 			setTimeout('update()', 2000);
@@ -1004,7 +1003,7 @@ if ( app ) {
 		});
 		// For iOS => backgroundtask
 		//backgroundtask.start(bgFunctionToRun);
-		// For Android => Enable background mode
+		// For Android And Apple Enterprise apps => Enable background mode
 		cordova.plugins.backgroundMode.enable();
 		cordova.plugins.backgroundMode.setDefaults({
 			title:  'App toujours en fonction, nous vous informons des courses en cours...',
