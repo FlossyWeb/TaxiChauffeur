@@ -47,7 +47,7 @@ var badgeNumber2 = 0;
 
 // Detect wether it is an App or WebApp
 var app;
-var appVersion = "1.6.4";
+var appVersion = "1.6.5";
 var devicePlatform;
 		
 // getLocation & secureCall
@@ -1044,10 +1044,10 @@ function onResume() {
 	cordova.plugins.notification.local.clearAll(function() {
 		//alert("All notifications cleared");
 	}, this);
-	Sound_On();
+	//Sound_On();
 }
 function onPause() {
-	Sound_Off();
+	//Sound_Off();
 }
 function bgFunctionToRun() {
 	update();
