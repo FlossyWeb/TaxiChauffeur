@@ -44,6 +44,7 @@ var notificationId = 1;
 var badgeNumber = 0;
 var badgeNumber1 = 0;
 var badgeNumber2 = 0;
+var notifyOnce = true;
 
 // Detect wether it is an App or WebApp
 var app;
@@ -501,16 +502,19 @@ function update()
 					navigator.notification.vibrate(1000);
 				}
 			}, 100);
-			badgeNumber1=1;
-			badgeNumber = badgeNumber1+badgeNumber2;
-			cordova.plugins.notification.local.schedule({
-				id: 1,
-				title: "Notification de course Mon Appli Taxi",
-				text: "Une course immediate est disponible !",
-				led: "E7B242",
-				badge: badgeNumber,
-				data: { data:data }
-			});
+			if(notifyOnce) {
+				notifyOnce = false;
+				badgeNumber1=1;
+				badgeNumber = badgeNumber1+badgeNumber2;
+				cordova.plugins.notification.local.schedule({
+					id: 1,
+					title: "Notification de course Mon Appli Taxi",
+					text: "Une course immediate est disponible !",
+					led: "E7B242",
+					badge: badgeNumber,
+					data: { data:data }
+				});
+			}
 		}
 		else
 		{
@@ -519,6 +523,7 @@ function update()
 			$("#warn_home").empty().append('<a href="#jobs_taker"><img src="visuels/Aucune_course_flat.png" width="100%"/></a>');
 			//document.getElementById("play").pause();
 			//stopAudio();
+			notifyOnce = true;
 			cordova.plugins.notification.local.clear(1, function() {
 				//alert("done");
 			});
@@ -1043,10 +1048,10 @@ function onResume() {
 	cordova.plugins.notification.local.clearAll(function() {
 		//alert("All notifications cleared");
 	}, this);
-	Sound_On();
+	//Sound_On();
 }
 function onPause() {
-	Sound_Off();
+	//Sound_Off();
 }
 function bgFunctionToRun() {
 	update();
