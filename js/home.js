@@ -484,15 +484,15 @@ function update()
 	dispo = $.sessionStorage.getItem('dispo');
     $.ajax({
         type: "POST",
-        url: "https://www.mytaxiserver.com/appserver/open_get_app_drive.php",
+        url: "https://www.mytaxiserver.com/appserver/open_get_app_drive_lp.php",
         data: { taxi: taxi, tel: tel, email: email, dispo: dispo, pass: pass, dep: dep, mngid: mngid, group: group, lat: lat, lng: lng, nodelay: true },
-        dataType: "html",
-		cache: false,
-        timeout: 6000 // in milliseconds
+        dataType: "json",
+		cache: false
+        //,timeout: 6000 // in milliseconds
     }).done(function(data) {
-		if (data != 0)
+		if (data.gotSome)
 		{
-			$("#screen_job").empty().append(data);
+			$("#screen_job").empty().append(data.showJob);
 			$("#warn").empty().append('<a href="#jobs_taker"><img src="visuels/Alerte_course_flat.png" width="100%"/></a>');
 			$("#warn_home").empty().append('<a href="#jobs_taker"><img src="visuels/Alerte_course_flat.png" width="100%"/></a>');
 			//document.getElementById("play").play();
@@ -503,7 +503,7 @@ function update()
 					navigator.notification.vibrate(1000);
 				}
 			}, 100);
-			pollingTime = 2000;  // Time to play the sound
+			//pollingTime = 2000;  // Time to play the sound
 			if(notifyOnce) {
 				notifyOnce = false;
 				badgeNumber1=1;
@@ -525,15 +525,15 @@ function update()
 			$("#warn_home").empty().append('<a href="#jobs_taker"><img src="visuels/Aucune_course_flat.png" width="100%"/></a>');
 			//document.getElementById("play").pause();
 			//stopAudio();
-			pollingTime = getBackPollingTime;
+			//pollingTime = getBackPollingTime;
 			notifyOnce = true;
 			cordova.plugins.notification.local.clear(1, function() {
 				//alert("done");
 			});
 		}
 	}).always(function(data) {
-		//update();
-		setTimeout('update()', pollingTime);
+		update();
+		//setTimeout('update()', pollingTime);
 	});
 }
 function checkCmd() {
