@@ -488,11 +488,12 @@ function update()
         url: "https://www.mytaxiserver.com/appserver/open_get_app_drive_lp.php",
         data: { taxi: taxi, tel: tel, email: email, dispo: dispo, pass: pass, dep: dep, mngid: mngid, group: group, lat: lat, lng: lng, nodelay: true, gotSome: getSome },
         dataType: "json",
-		cache: false
-        //,timeout: 6000 // in milliseconds
+		cache: false,
+        timeout: 240000 // in milliseconds
     }).done(function(data) {
 		getSome = data.gotSome;
-		if (data.gotSome)
+		$("#screen_job").empty().append(data.gotSome+' - '+data.snippet+'<br>');
+		if (data.gotSome!=0)
 		{
 			$("#screen_job").empty().append(data.snippet);
 			$("#warn").empty().append('<a href="#jobs_taker"><img src="visuels/Alerte_course_flat.png" width="100%"/></a>');
