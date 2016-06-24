@@ -32,6 +32,7 @@ var delay = 10;
 var pollingTime = 2000;
 var getBackPollingTime = 2000;
 var geoFailedAlertOnce = false;
+var getSome = false;
 
 // Lecteur audio
 var my_media = null;
@@ -485,14 +486,15 @@ function update()
     $.ajax({
         type: "POST",
         url: "https://www.mytaxiserver.com/appserver/open_get_app_drive_lp.php",
-        data: { taxi: taxi, tel: tel, email: email, dispo: dispo, pass: pass, dep: dep, mngid: mngid, group: group, lat: lat, lng: lng, nodelay: true },
+        data: { taxi: taxi, tel: tel, email: email, dispo: dispo, pass: pass, dep: dep, mngid: mngid, group: group, lat: lat, lng: lng, nodelay: true, gotSome: getSome },
         dataType: "json",
 		cache: false
         //,timeout: 6000 // in milliseconds
     }).done(function(data) {
+		getSome = data.gotSome;
 		if (data.gotSome)
 		{
-			$("#screen_job").empty().append(data.showJob);
+			$("#screen_job").empty().append(data.snippet);
 			$("#warn").empty().append('<a href="#jobs_taker"><img src="visuels/Alerte_course_flat.png" width="100%"/></a>');
 			$("#warn_home").empty().append('<a href="#jobs_taker"><img src="visuels/Alerte_course_flat.png" width="100%"/></a>');
 			//document.getElementById("play").play();
@@ -514,7 +516,7 @@ function update()
 					text: "Une course immediate est disponible !",
 					led: "E7B242",
 					badge: badgeNumber,
-					data: { data:data }
+					data: { data:data.gotSome }
 				});
 			}
 		}
