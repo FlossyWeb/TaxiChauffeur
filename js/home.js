@@ -50,7 +50,7 @@ var notifyOnce = true;
 
 // Detect wether it is an App or WebApp
 var app;
-var appVersion = "1.6.7";
+var appVersion = "1.6.8";
 var devicePlatform;
 		
 // getLocation & secureCall
@@ -698,7 +698,7 @@ function showRepCusto() {
 // diaryCall for direct job that open #delay
 function delayCall(query_string)
 {
-	Sound_Off();
+	stopAudio();
 	$.sessionStorage.setItem('query_string', query_string);
 	var delayAddr = $.urlParam('rdv', 'www.my.url?'+query_string); // PageToGo
 	$("#delayAddr").empty().append("<p><b>Lieu de prise en charge: "+delayAddr+"</b></p>");
