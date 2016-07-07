@@ -50,7 +50,7 @@ var notifyOnce = true;
 
 // Detect wether it is an App or WebApp
 var app;
-var appVersion = "1.6.8";
+var appVersion = "1.6.9";
 var devicePlatform;
 		
 // getLocation & secureCall
@@ -485,11 +485,11 @@ function update()
 	dispo = $.sessionStorage.getItem('dispo');
     $.ajax({
         type: "POST",
-        url: "https://www.mytaxiserver.com/appserver/open_get_app_drive_lp.php",
-        data: { taxi: taxi, tel: tel, email: email, dispo: dispo, pass: pass, dep: dep, mngid: mngid, group: group, lat: lat, lng: lng, nodelay: true, gotSome: getSome },
+        url: "https://www.mytaxiserver.com/appserver/open_get_app_drive_lp_dev.php",
+        data: { taxi: taxi, tel: tel, email: email, dispo: dispo, pass: pass, dep: dep, mngid: mngid, group: group, lat: lat, lng: lng, nodelay: true, gotSome: getSome, version: appVersion },
         dataType: "json",
 		cache: false,
-        timeout: 240000 // in milliseconds
+        timeout: 60000 // in milliseconds
     }).done(function(data) {
 		getSome = data.gotSome;
 		//$("#screen_job").empty().append(data.gotSome+' - '+data.snippet+'<br>');
