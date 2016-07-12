@@ -397,6 +397,9 @@ function getLocation()
 			else alert("Localisation impossible, veuillez v&eacute;rifier l'&eacute;tat de votre connection ainsi que la disponibilit&eacute; des services de localisation dans les réglages de votre appareil.");
 		}
 	}
+	else {
+		setTimeout('getLocation()', 5000);
+	}
 }
 function showError(error)
 {
@@ -541,8 +544,10 @@ function update()
 			}
 		}).always(function(data) {
 			update();
-			//setTimeout('update()', pollingTime);
 		});
+	}
+	else {
+		setTimeout('update()', pollingTime);
 	}
 }
 function checkCmd() {
