@@ -381,24 +381,19 @@ function dc() {
 function getLocation()
 {
 	dispo = $.sessionStorage.getItem('dispo');
-	if(dispo == 1) {
-		if (navigator.geolocation)
-		{
-			//var watchId = navigator.geolocation.watchPosition(get_coords, showError, { maximumAge: 30000, timeout: 5000, enableHighAccuracy: true });
-			if (navigator.userAgent.toLowerCase().match(/android/)) {
-				navigator.geolocation.getCurrentPosition(get_coords, showError,{enableHighAccuracy:false, maximumAge:5000, timeout: 5000});
-			}
-			else {
-				navigator.geolocation.getCurrentPosition(get_coords, showError,{enableHighAccuracy:true, maximumAge:5000, timeout: 5000});
-			}
+	if (navigator.geolocation)
+	{
+		//var watchId = navigator.geolocation.watchPosition(get_coords, showError, { maximumAge: 30000, timeout: 5000, enableHighAccuracy: true });
+		if (navigator.userAgent.toLowerCase().match(/android/)) {
+			navigator.geolocation.getCurrentPosition(get_coords, showError,{enableHighAccuracy:false, maximumAge:5000, timeout: 5000});
 		}
 		else {
-			if(app) navigator.notification.alert("Localisation impossible, veuillez v&eacute;rifier l'&eacute;tat de votre connection ainsi que la disponibilit&eacute; des services de localisation dans les réglages de votre appareil.", alertDismissed, 'Mon Appli Taxi', 'OK');
-			else alert("Localisation impossible, veuillez v&eacute;rifier l'&eacute;tat de votre connection ainsi que la disponibilit&eacute; des services de localisation dans les réglages de votre appareil.");
+			navigator.geolocation.getCurrentPosition(get_coords, showError,{enableHighAccuracy:true, maximumAge:5000, timeout: 5000});
 		}
 	}
 	else {
-		setTimeout('getLocation()', 5000);
+		if(app) navigator.notification.alert("Localisation impossible, veuillez v&eacute;rifier l'&eacute;tat de votre connection ainsi que la disponibilit&eacute; des services de localisation dans les réglages de votre appareil.", alertDismissed, 'Mon Appli Taxi', 'OK');
+		else alert("Localisation impossible, veuillez v&eacute;rifier l'&eacute;tat de votre connection ainsi que la disponibilit&eacute; des services de localisation dans les réglages de votre appareil.");
 	}
 }
 function showError(error)
