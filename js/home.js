@@ -1007,7 +1007,8 @@ if ( app ) {
 		StatusBar.overlaysWebView(false);
 		StatusBar.backgroundColorByHexString("#E7B242");
 		// prevent device from sleeping
-		window.plugins.powerManagement.acquire();
+		window.powermanagement.acquire();
+		//window.plugins.powerManagement.acquire();
 		//Functions to call only at app first load
 		scanner = cordova.require("cordova/plugin/BarcodeScanner");
 		devicePlatform = device.platform;
