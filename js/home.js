@@ -1145,6 +1145,7 @@ function goScan ()
 		}
 	);
 }
+/*
 function contactPick()
 {
 	var successCallbackPick = function(result){
@@ -1161,6 +1162,7 @@ function contactPick()
 	}
 	window.plugins.contactNumberPicker.pick(successCallbackPick,failedCallbackPick);
 }
+*/
 // UDP init Success/Error Handlers...
 function UDPTransmitterInitializationSuccess(success) {
 	navigator.notification.alert('UDP INIT SUCCESS: '+success, alertDismissed, 'Mon Appli Taxi', 'OK');

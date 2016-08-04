@@ -44,11 +44,11 @@
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" version="1.0.0" />
 	<gap:plugin name="cordova-plugin-calendar" source="npm" />
 	<gap:plugin name="phonegap-plugin-barcodescanner" source="npm" />
-	<gap:plugin name="cordova-plugin-contact-number-picker" source="npm" />
 	<gap:plugin name="cordova-plugin-powermanagement" source="npm" />
 	<gap:plugin name="cordova-plugin-background-mode" source="npm" version="0.6.5" />
 	<gap:plugin name="cordova-sms-plugin" source="npm" version="0.1.10" />
 	<!-- 
+	<gap:plugin name="cordova-plugin-contact-number-picker" source="npm" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="nl.x-services.plugins.calendar" />
 	<gap:plugin name="com.simplec.plugins.powermanagement" version="0.4.0" />
