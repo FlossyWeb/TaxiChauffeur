@@ -37,9 +37,9 @@
 	<plugin name="cordova-plugin-inappbrowser" source="npm" />
 	<plugin name="cordova-plugin-device-orientation" source="npm" />
 	<plugin name="cordova-plugin-geolocation" source="npm" />
-	<gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="true">
+	<config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="true">
 		<string>CELA PERMETTRA AUX USAGERS DE CONNAITRE VOTRE POSITION.</string>
-	</gap:config-file>
+	</config-file>
 	<plugin name="cordova-plugin-statusbar" source="npm" />
 	<plugin name="cordova-plugin-whitelist" source="npm" spec="1.0.0" />
 	<plugin name="cordova-plugin-calendar" source="npm" />
