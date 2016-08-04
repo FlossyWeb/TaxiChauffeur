@@ -42,13 +42,15 @@
 	</gap:config-file>
 	<gap:plugin name="cordova-plugin-statusbar" source="npm" />
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" version="1.0.0" />
-	<gap:plugin name="nl.x-services.plugins.calendar" />
-	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
+	<gap:plugin name="cordova-plugin-calendar" source="npm" />
+	<gap:plugin name="phonegap-plugin-barcodescanner" source="npm" />
 	<gap:plugin name="cordova-plugin-contact-number-picker" source="npm" />
 	<gap:plugin name="cordova-plugin-powermanagement" source="npm" />
 	<gap:plugin name="cordova-plugin-background-mode" source="npm" version="0.6.5" />
 	<gap:plugin name="cordova-sms-plugin" source="npm" version="0.1.10" />
 	<!-- 
+	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
+	<gap:plugin name="nl.x-services.plugins.calendar" />
 	<gap:plugin name="com.simplec.plugins.powermanagement" version="0.4.0" />
 	<gap:plugin name="tr.bel.mamak.sms_plagin" version="0.1.0" />
 	<gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.6.4" />

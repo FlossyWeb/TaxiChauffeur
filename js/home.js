@@ -657,13 +657,13 @@ function addCalendar(date, rdv, com, idcourse, cell)
 	var diff = 60; // difference in minutes
 	var endDate = new Date(startDate.getTime() + diff*60000);
 	var title = "Course en commande";
-	var location = rdv;
+	var eventLocation = rdv;
 	var notes = 'Infos RDV : ' + com + ' - Identifiant de la course : ' + idcourse + ' - Tel client : ' + cell;
 	//var success = function(message) { navigator.notification.alert("AJOUT EVENEMENT AU CALENDRIER: " + JSON.stringify(message)); };
 	var success = function(message) { navigator.notification.alert("EVENEMENT AJOUTE AU CALENDRIER", alertDismissed, 'Mon Appli Taxi', 'OK'); };
 	var error = function(message) { navigator.notification.alert("Erreur: " + message, alertDismissed, 'Mon Appli Taxi Erreur', 'OK'); };
 	// create
-	window.plugins.calendar.createEvent(title,location,notes,startDate,endDate,success,error);
+	window.plugins.calendar.createEvent(title,eventLocation,notes,startDate,endDate,success,error);
 }
 function histoMap(rdv, idcourse, com, cell)
 {
