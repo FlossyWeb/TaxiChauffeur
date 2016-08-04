@@ -38,9 +38,6 @@ var getSome = false;
 var my_media = null;
 var sound = $.sessionStorage.setItem('sound', 'ON');
 
-// Scanner
-var scanner;
-
 // localNotifications
 var notificationId = 1;
 var badgeNumber = 0;
@@ -1010,7 +1007,6 @@ if ( app ) {
 		window.powermanagement.acquire();
 		//window.plugins.powerManagement.acquire();
 		//Functions to call only at app first load
-		scanner = cordova.require("cordova/plugin/BarcodeScanner");
 		devicePlatform = device.platform;
 		$.post("https://www.mytaxiserver.com/appclient/polling.php", {version: appVersion, os: devicePlatform}, function(data) {
 			pollingTime = data.polling;
@@ -1138,7 +1134,7 @@ var scanSuccess = function (result) {
 }
 function goScan ()
 {
-	scanner.scan(
+	cordova.plugins.barcodeScanner.scan(
 		scanSuccess, 
 		function (error) {
 			navigator.notification.alert("Scan Erreur: " + error, alertDismissed, 'Mon Appli Taxi Erreur', 'OK');
