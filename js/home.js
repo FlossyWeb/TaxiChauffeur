@@ -1062,14 +1062,16 @@ if ( app ) {
 	}
 }
 function onResume() {
-	$.post("https://www.mytaxiserver.com/client/active_app.php", { tel: tel, mngid: mngid, dep: dep}, function(data) {});
-	if((navigator.network.connection.type == Connection.NONE) || !window.jQuery){
-		$("body").empty().append('<img src="no_network.png" width="'+screen.width+'" height="'+screen.height+'" onClick="window.location.reload()" />');
-	}
-	cordova.plugins.notification.local.clearAll(function() {
-		//alert("All notifications cleared");
-	}, this);
-	//Sound_On();
+	setTimeout(function() {
+		$.post("https://www.mytaxiserver.com/client/active_app.php", { tel: tel, mngid: mngid, dep: dep}, function(data) {});
+		if((navigator.network.connection.type == Connection.NONE) || !window.jQuery){
+			$("body").empty().append('<img src="no_network.png" width="'+screen.width+'" height="'+screen.height+'" onClick="window.location.reload()" />');
+		}
+		cordova.plugins.notification.local.clearAll(function() {
+			//alert("All notifications cleared");
+		}, this);
+		//Sound_On();
+	}, 500);// iOS Quirks
 }
 function onPause() {
 	//Sound_Off();
