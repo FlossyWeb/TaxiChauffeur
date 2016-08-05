@@ -33,6 +33,7 @@ var pollingTime = 2000;
 var getBackPollingTime = 2000;
 var geoFailedAlertOnce = false;
 var getSome = false;
+var gotSome = false;
 
 // Lecteur audio
 var my_media = null;
@@ -519,6 +520,7 @@ function update()
 						data: { data:data.gotSome }
 					});
 				}
+				gotSome = true;
 			}
 			else
 			{
@@ -528,10 +530,24 @@ function update()
 				//document.getElementById("play").pause();
 				//stopAudio();
 				//pollingTime = getBackPollingTime;
-				notifyOnce = true;
-				cordova.plugins.notification.local.clear(1, function() {
-					//alert("done");
-				});
+				if (gotSome) {
+					badgeNumber1=1;
+					badgeNumber = badgeNumber1+badgeNumber2;
+					cordova.plugins.notification.local.schedule({
+						id: 1,
+						title: "Vous avez manqué une course Mon Appli Taxi",
+						text: "Une course immediate était disponible !",
+						led: "E7B242",
+						badge: badgeNumber,
+						data: { data:data.gotSome }
+					});
+					gotSome = false;
+				}
+				else {
+					cordova.plugins.notification.local.clear(1, function() {
+						//alert("done");
+					});
+				}
 			}
 		}).always(function(data) {
 			update();
@@ -726,6 +742,7 @@ function cancelCall(query_string)
 function directCall()
 {
 	$.mobile.loading( "show" );
+	gotSome = false;
 	// Getting query_string using sessionStorage
 	var dataDiary = $.sessionStorage.getItem('query_string');
 	// Modifying the link 2 diary
@@ -769,6 +786,7 @@ function directCall()
 function openCall(query_string)
 {
 	$.mobile.loading( "show" );
+	gotSome = false;
 	$.sessionStorage.setItem('query_string', query_string);
 	dep = $.localStorage.getItem('dep');
 	stopAudio();
