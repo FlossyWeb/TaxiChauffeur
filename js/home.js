@@ -48,7 +48,7 @@ var notifyOnce = true;
 
 // Detect wether it is an App or WebApp
 var app;
-var appVersion = "1.6.11";
+var appVersion = "1.6.12";
 var devicePlatform;
 		
 // getLocation & secureCall
@@ -382,7 +382,7 @@ function getLocation()
 	{
 		//var watchId = navigator.geolocation.watchPosition(get_coords, showError, { maximumAge: 30000, timeout: 5000, enableHighAccuracy: true });
 		if (navigator.userAgent.toLowerCase().match(/android/)) {
-			navigator.geolocation.getCurrentPosition(get_coords, showError,{enableHighAccuracy:false, maximumAge:5000, timeout: 5000});
+			navigator.geolocation.getCurrentPosition(get_coords, showError,{enableHighAccuracy:false, maximumAge:0, timeout: 5000});
 		}
 		else {
 			navigator.geolocation.getCurrentPosition(get_coords, showError,{enableHighAccuracy:true, maximumAge:5000, timeout: 5000});
@@ -432,6 +432,7 @@ function showError(error)
 		},{enableHighAccuracy:false, maximumAge:Infinity, timeout: 0});
 	}
 	else {
+		getLocation(); // We got out of the loop so we get back in !
 		//$( "#errorPop" ).popup( "open", { positionTo: "window" } );
 		if(app) navigator.notification.alert(geoAlert, alertDismissed, 'Mon Appli Taxi', 'OK');
 		else alert(geoAlert);
@@ -514,7 +515,7 @@ function update()
 					cordova.plugins.notification.local.schedule({
 						id: 1,
 						title: "Notification de course Mon Appli Taxi",
-						text: "Une course immediate est disponible !",
+						text: "Une course immédiate est disponible !",
 						led: "E7B242",
 						badge: badgeNumber,
 						data: { data:data.gotSome }
@@ -536,7 +537,7 @@ function update()
 					cordova.plugins.notification.local.schedule({
 						id: 1,
 						title: "Vous avez manqué une course Mon Appli Taxi",
-						text: "Une course immediate était disponible !",
+						text: "Une course immédiate était disponible !",
 						led: "E7B242",
 						badge: badgeNumber,
 						data: { data:data.gotSome }
@@ -715,6 +716,9 @@ function reporting_customer(rdv_rc, idcourse_rc, hail_id_rc, operator_rc, cell_r
 function showRepCusto() {
 	$('#reporting_customer_cont').slideToggle('slow');
 }
+function showIncident() {
+	$('#incident_cont').slideToggle('slow');
+}
 // diaryCall for direct job that open #delay
 function delayCall(query_string)
 {
@@ -877,8 +881,9 @@ function checkCustomerConfirm(d, q)
 	});
 }
 function callIncident(irdv, ihail, iop, icell, istatus)
-{ // callIncident(\''.$rdv.'\', \''.$hail_id.'\', \''.$operator.'\', \''.$cell.'\', \''.$status.'\')
-	$.post("https://www.mytaxiserver.com/appserver/open_incident.php" , { rdvpoint: irdv, hail_id: ihail, operator: iop, cell: icell, status: istatus, db: 'true', dep: dep}, function(data){ 
+{
+	var incident_taxi_reason = $('#incident_taxi_reason').val();
+	$.post("https://www.mytaxiserver.com/appserver/open_incident_reason.php" , { rdvpoint: irdv, hail_id: ihail, operator: iop, cell: icell, status: istatus, incident_taxi_reason: incident_taxi_reason, db: 'true', dep: dep}, function(data){ 
 		if (data.ok)
 		{
 			var number = icell;
@@ -1023,7 +1028,7 @@ if ( app ) {
 		StatusBar.backgroundColorByHexString("#E7B242");
 		// prevent device from sleeping
 		window.powermanagement.acquire();
-		//window.plugins.powerManagement.acquire();
+		//window.powermanagement.acquire();
 		//Functions to call only at app first load
 		devicePlatform = device.platform;
 		$.post("https://www.mytaxiserver.com/appclient/polling.php", {version: appVersion, os: devicePlatform}, function(data) {
