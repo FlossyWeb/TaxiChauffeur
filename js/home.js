@@ -874,6 +874,7 @@ function checkCustomerConfirm(d, q)
 	$.post("https://www.mytaxiserver.com/appserver/open_status.php?dep=" + d + "&check=0" , q, function(data){ 
 		if (data != 0)
 		{
+			stillCheckingHail = false;
 			if(app) navigator.notification.alert(data, alertDismissed, 'Mon Appli Taxi', 'OK');
 			else alert(data);
 			$.mobile.pageContainer.pagecontainer("change", "#home", { transition: "slide"} );
@@ -890,7 +891,9 @@ function checkCustomerConfirm(d, q)
 			Dispo_Off();
 		}
 	}).always(function(data) {
-		checkHail(d, q);
+		setTimeout( function () {
+			checkHail(d, q);
+		}, 30000);
 	});
 }
 function checkHail(d, q)
