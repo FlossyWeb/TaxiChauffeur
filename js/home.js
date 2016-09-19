@@ -670,7 +670,7 @@ function footer()
 	}).done(function(){
 		$('.marquee').marquee({
 			//speed in milliseconds of the marquee
-			duration: 10000,
+			duration: 5000,
 			//gap in pixels between the tickers
 			gap: 50,
 			//time in milliseconds before the marquee will start animating
