@@ -100,8 +100,6 @@ input[type=text]#from, input[type=text]#to {
 .marquee {
   width: 96%;
   overflow: hidden;
-  border: 1px solid #ccc;
-  background: #333;
 }
 .banner
 {
