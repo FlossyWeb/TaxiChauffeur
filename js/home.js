@@ -35,6 +35,7 @@ var geoFailedAlertOnce = false;
 var getSome = false;
 var gotSome = false;
 
+var openPdf;	
 // Lecteur audio
 var my_media = null;
 var sound = $.sessionStorage.setItem('sound', 'ON');
@@ -118,7 +119,7 @@ $.post("https://www.mytaxiserver.com/appclient/open_login_app.php", { tel: tel, 
 		document.location.href='index.html';
 	}
 	if (data.visa == 'NOW') {
-		if(data.done) $( "#leTaxiPopFirst" ).popup( "open", { positionTo: "window" } );
+		if(data.done) $( "#visaExpPop" ).popup( "open", { positionTo: "window" } );
 		else {
 			navigator.notification.alert("Votre carte bancaire expire ce mois-ci, veuillez la mettre à jour dès que possible\nVous pouvez le faire à tout moment dans \"mon compte\"=>\"Modifier CB\".", alertDismissed, 'Mon Appli Taxi', 'OK');
 		}
