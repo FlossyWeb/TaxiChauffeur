@@ -120,7 +120,9 @@ $.post("https://www.mytaxiserver.com/appclient/open_login_app.php", { tel: tel, 
 	}
 	if (data.visa == 'NOW') {
 		if(data.done) {
-			$( "#visaExpPop" ).popup( "open", { positionTo: "window" } );
+			setTimeout(function(){
+				$( "#visaExpPop" ).popup( "open", { positionTo: "window" } );
+			}, 2000);
 		}
 		else {
 			navigator.notification.alert("Votre carte bancaire expire ce mois-ci, veuillez la mettre à jour dès que possible\nVous pouvez le faire à tout moment dans \"mon compte\"=>\"Modifier CB\".", alertDismissed, 'Mon Appli Taxi', 'OK');
