@@ -50,7 +50,7 @@ function active()
 			}, 1000);
 		}
 		else if (!data.active) {
-			var display = '<p style="color:red;"><b>Il semblerait que votre compte ait &eacute;t&eacute; d&eacute;sactiv&eacute;, il s&rsquo;agit souvent d&rsquo;un probl&egrave;me de CB.</b></p><a href="mailto:contact@taximedia.fr" class="ui-btn ui-btn-c ui-corner-all ui-shadow ui-icon-navigation ui-btn-icon-left">Nous contacter</a>';
+			var display = '<p style="color:red;"><b>Il semblerait que votre compte ait &eacute;t&eacute; d&eacute;sactiv&eacute;.<br>Il s&rsquo;agit souvent d&rsquo;une CB expir&eacute;e, que vous pouvez mettre &agrave; jour sur cette page.<br>Cela peut aussi &ecirc;tre la cause d&rsquo;un impay&eacute;, dans ce cas veuillez</b></p><a href="mailto:contact@taximedia.fr" class="ui-btn ui-btn-c ui-corner-all ui-shadow ui-icon-navigation ui-btn-icon-left">Nous contacter</a>';
 			$("#returns").empty().append(display);
 			$( "#answer" ).popup( "open", { positionTo: "window" } );
 			$("#modCbCollaps").collapsible( "expand" );			
@@ -207,6 +207,17 @@ if ( app ) {
 		StatusBar.overlaysWebView(false);
 		StatusBar.backgroundColorByHexString("#E7B242");
 	}
+	openPdf = cordova.plugins.disusered.open;
+}
+function successOpenPdf() {
+  console.log('Success');
+}
+function errorOpenPdf(code) {
+  if (code === 1) {
+	console.log('No file handler found');
+  } else {
+	console.log('Undefined error');
+  }
 }
 function bankInfo()
 {

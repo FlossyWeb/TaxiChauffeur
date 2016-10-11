@@ -48,7 +48,7 @@ var notifyOnce = true;
 
 // Detect wether it is an App or WebApp
 var app;
-var appVersion = "1.6.16";
+var appVersion = "1.7.01";
 var devicePlatform;
 		
 // getLocation & secureCall
@@ -116,6 +116,12 @@ $.post("https://www.mytaxiserver.com/appclient/open_login_app.php", { tel: tel, 
 	{
 		$.localStorage.setItem('pass', 0);
 		document.location.href='index.html';
+	}
+	if (data.visa == 'NOW') {
+		if(data.done) $( "#leTaxiPopFirst" ).popup( "open", { positionTo: "window" } );
+		else {
+			navigator.notification.alert("Votre carte bancaire expire ce mois-ci, veuillez la mettre à jour dès que possible\nVous pouvez le faire à tout moment dans \"mon compte\"=>\"Modifier CB\".", alertDismissed, 'Mon Appli Taxi', 'OK');
+		}
 	}
 }, "json").done(function(data) { 
 	if(data.done) {
@@ -374,6 +380,16 @@ $('#manage').live('pagecreate', function() {
 		$("#myRates").empty().append(data);
 	});
 });
+function successOpenPdf() {
+  console.log('Success');
+}
+function errorOpenPdf(code) {
+  if (code === 1) {
+	console.log('No file handler found');
+  } else {
+	console.log('Undefined error');
+  }
+}
 function dc() {
 	$.mobile.loading( "show" );
 	$.localStorage.clear();
@@ -1117,6 +1133,7 @@ if ( app ) {
 		}).fail(function (jqXHR, textStatus, errorThrown) {
 			udptransmit.initialize(geoserver, 80);
 		});
+		openPdf = cordova.plugins.disusered.open;
 		// For iOS => backgroundtask
 		//backgroundtask.start(bgFunctionToRun);
 		// For Android And Apple Enterprise apps => Enable background mode
