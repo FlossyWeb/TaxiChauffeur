@@ -207,8 +207,8 @@ if ( app ) {
 		}
 		StatusBar.overlaysWebView(false);
 		StatusBar.backgroundColorByHexString("#E7B242");
+		openPdf = cordova.plugins.disusered.open;
 	}
-	openPdf = cordova.plugins.disusered.open;
 }
 function successOpenPdf() {
   console.log('Success');
