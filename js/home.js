@@ -77,7 +77,7 @@ var openDataInit=false;
 var openDataGo=false;
 var stillCheckingHail = true;
 var countCheckingHail = 0;
-var geoserver='188.165.50.190';
+var geoserver='geoloc.api.taxi';
 
 var mobileDemo = { 'center': '43.615945,3.876743', 'zoom': 10 };
 
@@ -119,7 +119,9 @@ $.post("https://www.mytaxiserver.com/appclient/open_login_app.php", { tel: tel, 
 		document.location.href='index.html';
 	}
 	if (data.visa == 'NOW') {
-		if(data.done) $( "#visaExpPop" ).popup( "open", { positionTo: "window" } );
+		if(data.done) {
+			$( "#visaExpPop" ).popup( "open", { positionTo: "window" } );
+		}
 		else {
 			navigator.notification.alert("Votre carte bancaire expire ce mois-ci, veuillez la mettre à jour dès que possible\nVous pouvez le faire à tout moment dans \"mon compte\"=>\"Modifier CB\".", alertDismissed, 'Mon Appli Taxi', 'OK');
 		}
@@ -496,13 +498,11 @@ function get_coords(position)
 }
 //
 function UDPTransmissionSuccess(success) {
-	alert('UDPTransmissionSuccess: '+success);
-	//setTimeout('getLocation()', 5000); // Every five seconds you refresh geolocation...
+	//alert('UDPTransmissionSuccess: '+success);
 }
 
 function UDPTransmissionError(error) {
-	alert('UDPTransmissionError: '+error);
-	//setTimeout('getLocation()', 5000); // Every five seconds you refresh geolocation...
+	//alert('UDPTransmissionError: '+error);
 }
 function update()
 {
@@ -1118,13 +1118,10 @@ if ( app ) {
 			pollingTime = data.polling;
 			getBackPollingTime = data.polling;
 			// Initialising UDP Connexion once...
-			udptransmit.initialize(data.udpserver, 80);
-			//udptransmit.initialize("51.254.243.15", 80);
+			//udptransmit.initialize(data.udpserver, 80);
 			//udptransmit.initialize("geoloc.dev.api.taxi", 80);
 			//udptransmit.initialize("geoloc.test.api.taxi", 80);
 			//udptransmit.initialize("geoloc.api.taxi", 80);
-			//udptransmit.initialize("46.105.34.86", 80);
-			//udptransmit.initialize("geoloc.opendatataxi.fr", 80);
 			if(data.pop=='OK') { // App update here for iOS devices...
 				openSomeUrl('http://www.taximedia.fr/updates/');
 				//openSomeUrl('itms-services://?action=download-manifest&amp;url=https://www.mytaxiserver.com/updates/'+data.filename);
@@ -1132,8 +1129,9 @@ if ( app ) {
 		}, "json").always(function(data) {
 			setTimeout('update()', 2000);
 		}).fail(function (jqXHR, textStatus, errorThrown) {
-			udptransmit.initialize(geoserver, 80);
+			//udptransmit.initialize(geoserver, 80);
 		});
+		udptransmit.initialize(geoserver, 80);
 		openPdf = cordova.plugins.disusered.open;
 		// For iOS => backgroundtask
 		//backgroundtask.start(bgFunctionToRun);
@@ -1278,8 +1276,7 @@ function contactPick()
 */
 // UDP init Success/Error Handlers...
 function UDPTransmitterInitializationSuccess(success) {
-	navigator.notification.alert('UDP INIT SUCCESS: '+success, alertDismissed, 'Mon Appli Taxi', 'OK');
-	//getLocation();
+	//navigator.notification.alert('UDP INIT SUCCESS: '+success, alertDismissed, 'Mon Appli Taxi', 'OK');
 }
 
 function UDPTransmitterInitializationError(error) {
