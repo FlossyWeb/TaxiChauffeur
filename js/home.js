@@ -673,7 +673,7 @@ function Dispo_Off()
 function onComing()
 {
 	// Pass Dispo_Off to our system but not in the open so it stays in onComing status
-	$.post("https://www.mytaxiserver.com/appclient/open_dispo_app.php?dispo=0", { taxi: taxi, tel: tel, pass: pass, dep: dep, taxi_id: taxi_id, opendata: false }).done(function(data) {
+	$.post("https://www.mytaxiserver.com/appclient/open_dispo_app.php?dispo=0", { taxi: taxi, tel: tel, pass: pass, dep: dep, taxi_id: taxi_id }).done(function(data) {
 		$.sessionStorage.setItem('dispo', '0');
 	}); 
 }
