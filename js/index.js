@@ -179,6 +179,7 @@ function modPay() {
 		if (data.sniffed == 'OK')
 		{
 			display = '<p><b>la modification de votre carte bancaire &agrave; bien &eacute;t&eacute; prise en compte, merci.</b></p>';
+			$.localStorage.setItem('siret', data.identId);
 		}
 		/*
 		else if (!data.signed)
