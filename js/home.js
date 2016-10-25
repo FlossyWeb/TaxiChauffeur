@@ -215,7 +215,6 @@ $( '#directions_map' ).live( 'pagebeforeshow',function(event){
 			$("#infos_map").trigger('create');
 			//navigator.notification.alert(data);
 		});
-		AppRate.promptForRating();
 	}
 });
 $('#directions_map').live('pagecreate', function() {
@@ -1194,7 +1193,7 @@ if ( app ) {
 		AppRate.preferences = {
 			openStoreInApp: true,
 			displayAppName: 'MonAppliTaxi Chauffeur',
-			//usesUntilPrompt: 5,
+			//usesUntilPrompt: 30,
 			promptAgainForEachNewVersion: false,
 			storeAppURL: {
 				ios: '954025129',
@@ -1208,6 +1207,7 @@ if ( app ) {
 				rateButtonLabel: "Votez"
 			}
 		};
+		AppRate.promptForRating();
 	}
 }
 function onResume() {
