@@ -304,7 +304,7 @@ $( '#history' ).live( 'pagebeforeshow',function(event){
 			$("#hist_cont").empty().append(data);
 			$("#hist_cont").trigger('create');
 			setTimeout(function() {
-				AppRate.promptForRating();
+				if(getRandomInt(1, 3) == 3) AppRate.promptForRating();
 			}, 1000);
 		}
 	}).always(function() { $.mobile.loading( "hide" ); });
@@ -391,6 +391,13 @@ $('#manage').live('pagecreate', function() {
 		$("#myAdvertising").empty().append(data);
 	});
 });
+function getRandomInt(min, max) {
+	/*
+	* Returns a random integer between min (inclusive) and max (inclusive)
+	* Using Math.round() will give you a non-uniform distribution!
+	*/
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 function successOpenPdf() {
   console.log('Success');
 }
@@ -1196,7 +1203,7 @@ if ( app ) {
 		AppRate.preferences = {
 			openStoreInApp: false,
 			displayAppName: 'MonAppliTaxi Chauffeur',
-			usesUntilPrompt: 3,
+			usesUntilPrompt: 6,
 			promptAgainForEachNewVersion: false,
 			storeAppURL: {
 				ios: '954025129',
@@ -1210,7 +1217,6 @@ if ( app ) {
 				rateButtonLabel: "Votez"
 			}
 		};
-		AppRate.promptForRating(false);
 	}
 }
 function onResume() {
