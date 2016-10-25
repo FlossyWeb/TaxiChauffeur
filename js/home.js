@@ -215,6 +215,7 @@ $( '#directions_map' ).live( 'pagebeforeshow',function(event){
 			$("#infos_map").trigger('create');
 			//navigator.notification.alert(data);
 		});
+		AppRate.promptForRating();
 	}
 });
 $('#directions_map').live('pagecreate', function() {
@@ -1189,6 +1190,24 @@ if ( app ) {
 		cordova.plugins.notification.local.clearAll(function() {
 			//alert("All notifications cleared");
 		}, this);
+		AppRate.locales.getLocale('fr');
+		AppRate.preferences = {
+			openStoreInApp: true,
+			displayAppName: 'MonAppliTaxi Chauffeur',
+			//usesUntilPrompt: 5,
+			promptAgainForEachNewVersion: false,
+			storeAppURL: {
+				ios: '954025129',
+				android: 'market://details?id=fr.taximedia.mytaxidriver'
+			},
+			customLocale: {
+				title: "Notez %@",
+				message: "Si vous aimez utiliser %@, n’oubliez pas de voter sur l’App Store. Cela ne prend qu’une minute. Merci d’avance pour votre soutien !",
+				cancelButtonLabel: "Non, merci",
+				laterButtonLabel: "Plus tard",
+				rateButtonLabel: "Votez"
+			}
+		};
 	}
 }
 function onResume() {
