@@ -300,7 +300,8 @@ $( '#cmd' ).live( 'pagebeforeshow',function(event){
 $( '#history' ).live( 'pagebeforeshow',function(event){
 	$.mobile.loading( "show" );
 	$.post("https://www.mytaxiserver.com/appclient/in_app_calls.php", { history: 'true', tel: tel, pass: pass, dep: dep, mngid: mngid }, function(data){
-		if (data != 0)		
+		if (data != 0)
+		{
 			$("#hist_cont").empty().append(data);
 			$("#hist_cont").trigger('create');
 			setTimeout(function() {
