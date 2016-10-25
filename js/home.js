@@ -304,7 +304,7 @@ $( '#history' ).live( 'pagebeforeshow',function(event){
 			$("#hist_cont").empty().append(data);
 			$("#hist_cont").trigger('create');
 			setTimeout(function() {
-				AppRate.promptForRating(false);
+				AppRate.promptForRating();
 			}, 1000);
 		}
 	}).always(function() { $.mobile.loading( "hide" ); });
@@ -1196,7 +1196,7 @@ if ( app ) {
 		AppRate.preferences = {
 			openStoreInApp: false,
 			displayAppName: 'MonAppliTaxi Chauffeur',
-			usesUntilPrompt: 10,
+			usesUntilPrompt: 3,
 			promptAgainForEachNewVersion: false,
 			storeAppURL: {
 				ios: '954025129',
@@ -1210,6 +1210,7 @@ if ( app ) {
 				rateButtonLabel: "Votez"
 			}
 		};
+		AppRate.promptForRating(false);
 	}
 }
 function onResume() {
