@@ -1301,9 +1301,9 @@ function UDPTransmitterInitializationError(error) {
 }
 function myTaxiDown()
 {
-	var url = "http://www.taximedia.fr/stores.php?app=prointalled";
-	window.open(url,'_blank','location=yes,enableViewportScale=yes,closebuttoncaption=Fermer');
-	//window.open('montaxipro://?from=driver', '_system');
+	//var url = "http://www.taximedia.fr/stores.php?app=prointalled";
+	//window.open(url,'_blank','location=yes,enableViewportScale=yes,closebuttoncaption=Fermer');
+	window.open('montaxipro://?from=driver', '_system');
 }
 function Share()
 {
