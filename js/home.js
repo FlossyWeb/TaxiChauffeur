@@ -384,6 +384,9 @@ $('#manage').live('pagecreate', function() {
 	$.post("https://www.mytaxiserver.com/appclient/myrates.php", { tel: tel, pass: pass, dep: dep, mngid: mngid }, function(data){
 		$("#myRates").empty().append(data);
 	});
+	$.post("https://www.mytaxiserver.com/appclient/advertising.php", { tel: tel, pass: pass, dep: dep, mngid: mngid }, function(data){
+		$("#myAdvertising").empty().append(data);
+	});
 });
 function successOpenPdf() {
   console.log('Success');
