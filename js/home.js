@@ -300,8 +300,13 @@ $( '#cmd' ).live( 'pagebeforeshow',function(event){
 $( '#history' ).live( 'pagebeforeshow',function(event){
 	$.mobile.loading( "show" );
 	$.post("https://www.mytaxiserver.com/appclient/in_app_calls.php", { history: 'true', tel: tel, pass: pass, dep: dep, mngid: mngid }, function(data){
-		$("#hist_cont").empty().append(data);
-		$("#hist_cont").trigger('create');
+		if (data != 0)		
+			$("#hist_cont").empty().append(data);
+			$("#hist_cont").trigger('create');
+			setTimeout(function() {
+				AppRate.promptForRating();
+			}, 1000);
+		}
 		//navigator.notification.alert(data);
 	}).always(function() { $.mobile.loading( "hide" ); });
 });
@@ -1189,9 +1194,9 @@ if ( app ) {
 		cordova.plugins.notification.local.clearAll(function() {
 			//alert("All notifications cleared");
 		}, this);
-		AppRate.locales.getLocale('fr');
+		//AppRate.locales.getLocale('fr');
 		AppRate.preferences = {
-			openStoreInApp: true,
+			openStoreInApp: false,
 			displayAppName: 'MonAppliTaxi Chauffeur',
 			//usesUntilPrompt: 30,
 			promptAgainForEachNewVersion: false,
@@ -1200,14 +1205,13 @@ if ( app ) {
 				android: 'market://details?id=fr.taximedia.mytaxidriver'
 			},
 			customLocale: {
-				title: "Notez %@",
-				message: "Si vous aimez utiliser %@, n’oubliez pas de voter sur l’App Store. Cela ne prend qu’une minute. Merci d’avance pour votre soutien !",
+				title: "Notez MonAppliTaxi Chauffeur",
+				message: "Si vous aimez utiliser MonAppliTaxi Chauffeur, n’oubliez pas de voter sur l’App Store. Cela ne prend qu’une minute. Merci d’avance pour votre soutien !",
 				cancelButtonLabel: "Non, merci",
 				laterButtonLabel: "Plus tard",
 				rateButtonLabel: "Votez"
 			}
 		};
-		AppRate.promptForRating();
 	}
 }
 function onResume() {
