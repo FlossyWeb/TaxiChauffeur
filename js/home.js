@@ -34,8 +34,9 @@ var getBackPollingTime = 2000;
 var geoFailedAlertOnce = false;
 var getSome = false;
 var gotSome = false;
+var AppRatePrompted = false;
+var openPdf;
 
-var openPdf;	
 // Lecteur audio
 var my_media = null;
 var sound = $.sessionStorage.setItem('sound', 'ON');
@@ -304,7 +305,10 @@ $( '#history' ).live( 'pagebeforeshow',function(event){
 			$("#hist_cont").empty().append(data);
 			$("#hist_cont").trigger('create');
 			setTimeout(function() {
-				if(getRandomInt(1, 3) == 3) AppRate.promptForRating();
+				if(getRandomInt(1, 3) == 3 && !AppRatePrompted) {
+					AppRatePrompted = true;
+					AppRate.promptForRating();
+				}
 			}, 1000);
 		}
 	}).always(function() { $.mobile.loading( "hide" ); });
