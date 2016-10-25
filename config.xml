@@ -67,6 +67,7 @@
 		<param name="URL_SCHEME" value="mytaxidriver" />
 	</plugin>
 	<plugin name="cordova-plugin-x-socialsharing" spec="5.0.11" source="npm" />
+    <plugin name="cordova-plugin-apprate" spec="https://github.com/pushandplay/cordova-plugin-apprate" source="git" />  
 
     <icon src="icon.png" />
 	<splash src="splash.png" />
