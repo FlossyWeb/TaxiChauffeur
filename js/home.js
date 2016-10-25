@@ -294,7 +294,6 @@ $( '#cmd' ).live( 'pagebeforeshow',function(event){
 			$("#screen_bookings").empty().append(data);
 			$("#screen_bookings").trigger('create');
 		}
-		//navigator.notification.alert(data);
 	}).always(function() { $.mobile.loading( "hide" ); });
 });
 $( '#history' ).live( 'pagebeforeshow',function(event){
@@ -308,7 +307,6 @@ $( '#history' ).live( 'pagebeforeshow',function(event){
 				AppRate.promptForRating();
 			}, 1000);
 		}
-		//navigator.notification.alert(data);
 	}).always(function() { $.mobile.loading( "hide" ); });
 });
 $( '#infos' ).live( 'pagebeforeshow',function(event){
@@ -316,7 +314,6 @@ $( '#infos' ).live( 'pagebeforeshow',function(event){
 	$.post("https://www.mytaxiserver.com/appclient/in_app_calls.php", { infos: 'true', pass: pass, dep: dep }, function(data){
 		$("#infos_cont").empty().append(data);
 		$("#infos_cont").trigger('create');
-		//navigator.notification.alert(data);
 	}).always(function() { $.mobile.loading( "hide" ); });
 });
 $('#manage').live('pagecreate', function() {
@@ -1199,7 +1196,7 @@ if ( app ) {
 		AppRate.preferences = {
 			openStoreInApp: false,
 			displayAppName: 'MonAppliTaxi Chauffeur',
-			//usesUntilPrompt: 30,
+			usesUntilPrompt: 6,
 			promptAgainForEachNewVersion: false,
 			storeAppURL: {
 				ios: '954025129',
