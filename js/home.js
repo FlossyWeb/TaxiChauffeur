@@ -50,7 +50,7 @@ var notifyOnce = true;
 
 // Detect wether it is an App or WebApp
 var app;
-var appVersion = "1.7.10";
+var appVersion = "1.7.11";
 var devicePlatform;
 		
 // getLocation & secureCall
@@ -1211,7 +1211,7 @@ if ( app ) {
 			promptAgainForEachNewVersion: false,
 			storeAppURL: {
 				ios: '954025129',
-				android: 'market://details?id=fr.taximedia.mytaxidriver'
+				android: 'market://details?id=com.taxibleuservices.mytaxicorp'
 			},
 			customLocale: {
 				title: "Notez MonAppliTaxi Chauffeur",
@@ -1771,9 +1771,9 @@ $(document).ready(function(){
 					$.localStorage.setItem('constructor', data.constructor);
 					$.localStorage.setItem('model', data.model);
 					$.localStorage.setItem('birthdate', data.birthdate);
-					$.localStorage.setItem('ads', taxi);
-					$.localStorage.setItem('tpmr', tpmr);
-					$.localStorage.setItem('amex', amex);
+					$.localStorage.setItem('ads', data.taxi);
+					$.localStorage.setItem('tpmr', data.tpmr);
+					$.localStorage.setItem('amex', data.amex);
 				}, "json").done(function(data) { 
 					setTimeout('reloadVars()', 2000); // Wait a little bit to reloadVars as it's all async...
 					$('#insee').val(data.insee);
