@@ -732,19 +732,6 @@ function footer()
 }
 function addCalendar(date, rdv, com, idcourse, cell)
 {
-	/*
-	var startDate = new Date(date.replace(/-/g, '/'));
-	var diff = 60; // difference in minutes
-	var endDate = new Date(startDate.getTime() + diff*60000);
-	var startDate = new Date(2016,11,16,18,30,0,0,0); // beware: month 0 = january, 11 = december 
-	var endDate = new Date(2016,11,16,19,30,0,0,0);
-	var title = "Course en commande";
-	var eventLocation = rdv;
-	var notes = 'Infos RDV : ' + com + ' - Identifiant de la course : ' + idcourse + ' - Tel client : ' + cell;
-	//var success = function(message) { navigator.notification.alert("AJOUT EVENEMENT AU CALENDRIER: " + JSON.stringify(message)); };
-	var success = function(message) { navigator.notification.alert("EVENEMENT AJOUTE AU CALENDRIER", alertDismissed, 'Mon Appli Taxi', 'OK'); };
-	var error = function(message) { navigator.notification.alert("Erreur: " + message, alertDismissed, 'Mon Appli Taxi Erreur', 'OK'); };
-	*/
 	var a = date.split(",");
 	var startDate = new Date(a[0],a[1]-1,a[2],a[3],a[4],a[5]);
 	var diff = 60; // difference in minutes
@@ -752,9 +739,9 @@ function addCalendar(date, rdv, com, idcourse, cell)
 	var title = "Course en commande";
 	var eventLocation = rdv;
 	var notes = 'Infos RDV : ' + com + ' - Identifiant de la course : ' + idcourse + ' - Tel client : ' + cell;
-	var success = function(message) { alert("Success: " + JSON.stringify(message)); };
-	var error = function(message) { alert("Error: " + message); };
-	alert(title+' - '+eventLocation+' - '+notes+' - '+startDate+' - '+endDate);
+	//var success = function(message) { navigator.notification.alert("AJOUT EVENEMENT AU CALENDRIER: " + JSON.stringify(message)); };
+	var success = function(message) { navigator.notification.alert("EVENEMENT AJOUTE AU CALENDRIER", alertDismissed, 'Mon Appli Taxi', 'OK'); };
+	var error = function(message) { navigator.notification.alert("Erreur: " + message, alertDismissed, 'Mon Appli Taxi Erreur', 'OK'); };
 	// create
 	window.plugins.calendar.createEvent(title,eventLocation,notes,startDate,endDate,success,error);
 }
