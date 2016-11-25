@@ -733,9 +733,8 @@ function footer()
 function addCalendar(date, rdv, com, idcourse, cell)
 {
 	/*
-	var startDate = new Date(date.replace(/-/g, '/'));
-	var diff = 60; // difference in minutes
-	var endDate = new Date(startDate.getTime() + diff*60000);
+	var startDate = new Date(2016,11,16,18,30,0,0,0); // beware: month 0 = january, 11 = december 
+	var endDate = new Date(2016,11,16,19,30,0,0,0);
 	var title = "Course en commande";
 	var eventLocation = rdv;
 	var notes = 'Infos RDV : ' + com + ' - Identifiant de la course : ' + idcourse + ' - Tel client : ' + cell;
@@ -743,8 +742,9 @@ function addCalendar(date, rdv, com, idcourse, cell)
 	var success = function(message) { navigator.notification.alert("EVENEMENT AJOUTE AU CALENDRIER", alertDismissed, 'Mon Appli Taxi', 'OK'); };
 	var error = function(message) { navigator.notification.alert("Erreur: " + message, alertDismissed, 'Mon Appli Taxi Erreur', 'OK'); };
 	*/
-	var startDate = new Date(2016,11,16,18,30,0,0,0); // beware: month 0 = january, 11 = december 
-	var endDate = new Date(2016,11,16,19,30,0,0,0);
+	var startDate = new Date(date.replace(/-/g, '/'));
+	var diff = 60; // difference in minutes
+	var endDate = new Date(startDate.getTime() + diff*60000);
 	var title = "Course en commande";
 	var eventLocation = rdv;
 	var notes = 'Infos RDV : ' + com + ' - Identifiant de la course : ' + idcourse + ' - Tel client : ' + cell;
