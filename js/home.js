@@ -745,7 +745,8 @@ function addCalendar(date, rdv, com, idcourse, cell)
 	var success = function(message) { navigator.notification.alert("EVENEMENT AJOUTE AU CALENDRIER", alertDismissed, 'Mon Appli Taxi', 'OK'); };
 	var error = function(message) { navigator.notification.alert("Erreur: " + message, alertDismissed, 'Mon Appli Taxi Erreur', 'OK'); };
 	*/
-	var startDate = new Date(date);
+	var a = date.split(",");
+	var startDate = new Date(a[0],a[1]-1,a[2],a[3],a[4],a[5]);
 	var diff = 60; // difference in minutes
 	var endDate = new Date(startDate.getTime() + diff*60000);
 	var title = "Course en commande";
