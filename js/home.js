@@ -289,7 +289,7 @@ $( '#planning' ).live( 'pagebeforeshow',function(event){
 });
 $( '#cmd' ).live( 'pagebeforeshow',function(event){
 	$.mobile.loading( "show" );
-	$.post("https://www.mytaxiserver.com/appserver/get_app_bookings.php", { taxi: taxi, tel: tel, email: email, dispo: dispo, pass: pass, dep: dep, mngid: mngid, group: group }, function(data){
+	$.post("https://www.mytaxiserver.com/appserver/get_app_bookings.php", { taxi: taxi, tel: tel, email: email, dispo: dispo, pass: pass, dep: dep, mngid: mngid, group: group, zip: station }, function(data){
 		if (data != 0)
 		{
 			$("#screen_bookings").empty().append(data);
@@ -741,6 +741,7 @@ function addCalendar(date, rdv, com, idcourse, cell)
 	//var success = function(message) { navigator.notification.alert("AJOUT EVENEMENT AU CALENDRIER: " + JSON.stringify(message)); };
 	var success = function(message) { navigator.notification.alert("EVENEMENT AJOUTE AU CALENDRIER", alertDismissed, 'Mon Appli Taxi', 'OK'); };
 	var error = function(message) { navigator.notification.alert("Erreur: " + message, alertDismissed, 'Mon Appli Taxi Erreur', 'OK'); };
+	alert(title+' - '+eventLocation+' - '+notes+' - '+startDate+' - '+endDate);
 	// create
 	window.plugins.calendar.createEvent(title,eventLocation,notes,startDate,endDate,success,error);
 }
