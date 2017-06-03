@@ -66,7 +66,7 @@
 	<plugin name="cordova-plugin-customurlscheme" source="npm">
 		<param name="URL_SCHEME" value="mytaxidriver" />
 	</plugin>
-	<plugin name="cordova-plugin-x-socialsharing" spec="5.0.11" source="npm" />
+	<plugin name="cordova-plugin-x-socialsharing" source="npm" />
     <plugin name="cordova-plugin-apprate" spec="https://github.com/pushandplay/cordova-plugin-apprate" source="git" />  
 
     <icon src="icon.png" />
@@ -76,6 +76,7 @@
 	<icon src="icons/ios/icon-58.png" platform="ios" width="58" height="58" />
 	<icon src="icons/ios/icon-72.png" platform="ios" width="72" height="72" />
 	<icon src="icons/ios/icon-76.png" platform="ios" width="76" height="76" />
+	<icon src="icons/ios/icon-80.png" platform="ios" width="80" height="80" />
 	<icon src="icons/ios/icon-87.png" platform="ios" width="87" height="87" />
 	<icon src="icons/ios/icon-114.png" platform="ios" width="114" height="114" />
 	<icon src="icons/ios/icon-120.png" platform="ios" width="120" height="120" />
