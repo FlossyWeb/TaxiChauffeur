@@ -50,7 +50,7 @@ var notifyOnce = true;
 
 // Detect wether it is an App or WebApp
 var app;
-var appVersion = "1.7.13";
+var appVersion = "1.7.14";
 var devicePlatform;
 		
 // getLocation & secureCall
@@ -1837,7 +1837,7 @@ $(document).ready(function(){
 			}
 			else {
 				display = '<p style="color:red;"><b>la modification de vos informations personnelles n&rsquo;&agrave; pas &eacute;t&eacute; prise en compte, l&rsquo;identifiant fourni ne figurant pas dans notre base de donn&eacute;e.</b></p>';
-				alertMe = "la modification de vos identifiants n'à pas été faite, l'identifiant fourni ne figurant pas dans notre base de donnée.";
+				alertMe = "la modification de vos identifiants n'a pas été faite, l'identifiant fourni ne figurant pas dans notre base de donnée.";
 			}
 			$("#returns").empty().append(display);
 			navigator.notification.alert(alertMe, alertDismissed, 'Mon Appli Taxi', 'OK');
